@@ -1,0 +1,8 @@
+{
+  "/favicon.ico/route": "/favicon.ico",
+  "/_not-found/page": "/_not-found",
+  "/cart/page": "/cart",
+  "/wallpapers/product/page": "/wallpapers/product",
+  "/wallpapers/page": "/wallpapers",
+  "/page": "/"
+}
