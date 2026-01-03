@@ -1,7 +1,9 @@
 {
+  "/cart/page": "app/cart/page.js",
   "/favicon.ico/route": "app/favicon.ico/route.js",
+  "/login/page": "app/login/page.js",
   "/page": "app/page.js",
+  "/register/page": "app/register/page.js",
   "/wallpapers/[slug]/page": "app/wallpapers/[slug]/page.js",
-  "/wallpapers/page": "app/wallpapers/page.js",
-  "/wallpapers/product/page": "app/wallpapers/product/page.js"
+  "/wallpapers/page": "app/wallpapers/page.js"
 }

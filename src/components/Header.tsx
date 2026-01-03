@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SearchIcon from "./Media/Search";
 import CartIcon from "./Media/Cart";
+import UserIcon from "./Media/User";
 import {
   Disclosure,
   DisclosureButton,
@@ -79,6 +80,9 @@ const Header: React.FC = () => {
           {/* Icons (Right) */}
           <div className="flex items-center gap-6">
             <SearchIcon {...iconProps} />
+            <Link href="/login" className="cursor-pointer">
+              <UserIcon {...iconProps} />
+            </Link>
             <Link href="/cart" className="cursor-pointer">
               <CartIcon {...iconProps} />
             </Link>

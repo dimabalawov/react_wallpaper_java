@@ -6,6 +6,8 @@ import ArrowVerticalIcon from "@/components/Media/ArrowVerticalIcon";
 import Extra from "@/components/Extra";
 import Material from "@/components/Material";
 import { WallpaperProduct } from "@/interfaces/wallpaper";
+import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 const materials = [
   {
@@ -33,6 +35,45 @@ const ProductClient: React.FC<ProductClientProps> = ({ product }) => {
   const [premium, setPremium] = useState(false);
   const [glue, setGlue] = useState(false);
   const [laminate, setLaminate] = useState(false);
+
+  const { addToCart } = useCart();
+  const router = useRouter();
+
+  const calculatePrice = () => {
+    const area = (width * height) / 10000; // m2
+    const basePrice = product.salePrice || product.basePrice;
+    let total = basePrice * area;
+
+    if (premium) total += 10; // Example fixed price addition
+    if (glue) total += 129;
+    if (laminate) total += 10;
+
+    return Math.round(total);
+  };
+
+  const handleAddToCart = () => {
+    const options = [];
+    if (premium) options.push({ label: "Друк преміум", price: 10 });
+    if (glue) options.push({ label: "Клей", price: 129 });
+    if (laminate) options.push({ label: "Ламінування", price: 10 });
+
+    addToCart({
+      productId: product.id,
+      title: product.name,
+      code: product.article,
+      size: `${width}см x ${height}см`,
+      width,
+      height,
+      material: materials[material].label,
+      pricePerM2: product.salePrice || product.basePrice,
+      imageUrl: product.image?.startsWith("/")
+        ? `http://localhost:8080${product.image}`
+        : product.image,
+      options,
+      total: calculatePrice(),
+    });
+    router.push("/cart");
+  };
 
   return (
     <div className="flex flex-col px-4 sm:px-8 md:px-[clamp(2rem,6vw,8rem)] py-8">
@@ -201,15 +242,21 @@ const ProductClient: React.FC<ProductClientProps> = ({ product }) => {
                 Вартість замовлення:
               </div>
               <div className="flex flex-col">
-                <div className="text-teal line-through mb-[-0.2rem] text-xl font-black">
-                  450 грн
-                </div>
+                {product.salePrice && (
+                  <div className="text-teal line-through mb-[-0.2rem] text-xl font-black">
+                    {Math.round(product.basePrice * ((width * height) / 10000))}{" "}
+                    грн
+                  </div>
+                )}
                 <div className="text-2xl font-extrabold text-navy whitespace-nowrap">
-                  550 грн
+                  {calculatePrice()} грн
                 </div>
               </div>
             </div>
-            <button className="bg-teal text-white font-bold w-full rounded-lg px-8 py-3 text-lg hover:bg-transparent hover:text-teal border-2 border-teal transition-colors">
+            <button
+              onClick={handleAddToCart}
+              className="bg-teal text-white font-bold w-full rounded-lg px-8 py-3 text-lg hover:bg-transparent hover:text-teal border-2 border-teal transition-colors"
+            >
               ЗАМОВИТИ
             </button>
           </div>

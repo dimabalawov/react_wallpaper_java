@@ -96,11 +96,13 @@
     --color-gray-100: #f3f4f6;
     --color-gray-200: #e5e7eb;
     --color-gray-400: #99a1af;
+    --color-gray-500: #6a7282;
     --color-gray-700: #364153;
     --color-black: #000;
     --color-white: #fff;
     --spacing: .25rem;
     --container-xs: 20rem;
+    --container-md: 28rem;
     --container-lg: 32rem;
     --container-6xl: 72rem;
     --text-sm: .875rem;
@@ -149,6 +151,7 @@
       --color-gray-100: color(display-p3 .953567 .956796 .964321);
       --color-gray-200: color(display-p3 .899787 .906171 .92106);
       --color-gray-400: color(display-p3 .605734 .630385 .680158);
+      --color-gray-500: color(display-p3 .421287 .446085 .504784);
       --color-gray-700: color(display-p3 .219968 .253721 .318679);
     }
   }
@@ -160,6 +163,7 @@
       --color-gray-100: lab(96.1596% -.0823438 -1.13575);
       --color-gray-200: lab(91.6229% -.159115 -2.26791);
       --color-gray-400: lab(65.9269% -.832707 -8.17473);
+      --color-gray-500: lab(47.7841% -.393182 -10.0268);
       --color-gray-700: lab(27.1134% -.956401 -12.3224);
     }
   }
@@ -768,6 +772,10 @@
     min-height: 350px;
   }
 
+  .min-h-screen {
+    min-height: 100vh;
+  }
+
   .w-4\/5 {
     width: 80%;
   }
@@ -812,6 +820,10 @@
     max-width: var(--container-lg);
   }
 
+  .max-w-md {
+    max-width: var(--container-md);
+  }
+
   .max-w-screen {
     max-width: 100vw;
   }
@@ -844,7 +856,7 @@
     flex-shrink: 1;
   }
 
-  .grow {
+  .flex-grow, .grow {
     flex-grow: 1;
   }
 
@@ -1135,6 +1147,10 @@
     padding: calc(var(--spacing) * 6);
   }
 
+  .p-8 {
+    padding: calc(var(--spacing) * 8);
+  }
+
   .px-2 {
     padding-inline: calc(var(--spacing) * 2);
   }
@@ -1190,6 +1206,10 @@
 
   .py-14 {
     padding-block: calc(var(--spacing) * 14);
+  }
+
+  .py-16 {
+    padding-block: calc(var(--spacing) * 16);
   }
 
   .pt-4 {
@@ -1360,6 +1380,10 @@
 
   .text-gray-400 {
     color: var(--color-gray-400);
+  }
+
+  .text-gray-500 {
+    color: var(--color-gray-500);
   }
 
   .text-gray-700 {
@@ -1550,6 +1574,13 @@
     }
   }
 
+  @media (hover: hover) {
+    .hover\:underline:hover {
+      -webkit-text-decoration-line: underline;
+      text-decoration-line: underline;
+    }
+  }
+
   .focus\:bg-gray-100:focus {
     background-color: var(--color-gray-100);
   }
@@ -1561,6 +1592,10 @@
 
   .focus\:ring-navy:focus {
     --tw-ring-color: var(--color-navy);
+  }
+
+  .focus\:ring-teal:focus {
+    --tw-ring-color: var(--color-teal);
   }
 
   .focus\:outline-none:focus {
