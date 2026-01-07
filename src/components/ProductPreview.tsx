@@ -11,6 +11,7 @@ interface ProductPreviewProps {
   oldPrice?: string;
   code?: string;
   slug: string;
+  basePath?: string; // New optional prop to control the link path
 }
 
 const ProductPreview: React.FC<ProductPreviewProps> = ({
@@ -20,10 +21,11 @@ const ProductPreview: React.FC<ProductPreviewProps> = ({
   oldPrice,
   code = "FOB-2045",
   slug,
+  basePath = "/wallpapers", // Default to /wallpapers
 }) => {
   return (
     <Link
-      href={`/wallpapers/${slug}`}
+      href={`${basePath}/${slug}`}
       className="flex flex-col bg-white rounded-xl w-full lg:max-w-[370px] h-full relative group no-underline"
     >
       {/* Image */}

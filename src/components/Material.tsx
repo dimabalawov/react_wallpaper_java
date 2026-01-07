@@ -13,19 +13,33 @@ const Material: React.FC<MaterialProps> = ({
   checked,
   onChange,
 }) => (
-  <label className="flex items-center border border-teal text-navy  rounded-xl px-4 py-3 cursor-pointer transition-colors">
-    <input
-      type="radio"
-      name="material"
-      checked={checked}
-      onChange={onChange}
-      className="accent-teal self-start mt-5 mr-3"
-    />
-    <div className="flex-1 p-2">
-      <div className="font-semibold sm:text-lg mb-1">{label}</div>
-      <div className="text-navy font-normal text-sm sm:text-base">{desc}</div>
+  <label
+    className={`flex items-start p-4 rounded-xl border-2 cursor-pointer transition-all ${
+      checked
+        ? "border-teal bg-teal/5 shadow-sm"
+        : "border-gray-100 bg-white hover:border-gray-200 hover:shadow-sm"
+    }`}
+  >
+    <div className="relative flex items-center justify-center w-5 h-5 mt-1 mr-4">
+      <input
+        type="radio"
+        name="material"
+        checked={checked}
+        onChange={onChange}
+        className="peer appearance-none w-5 h-5 border-2 border-gray-300 rounded-full checked:border-teal checked:bg-teal transition-colors"
+      />
+      <div className="absolute w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100 transition-opacity" />
     </div>
-    <div className="aspect-square w-20 bg-mock rounded-lg ml-4" />
+    <div className="flex-1">
+      <div
+        className={`font-bold text-lg mb-1 ${
+          checked ? "text-teal" : "text-navy"
+        }`}
+      >
+        {label}
+      </div>
+      <div className="text-gray-500 text-sm leading-relaxed">{desc}</div>
+    </div>
   </label>
 );
 

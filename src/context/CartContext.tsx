@@ -12,13 +12,14 @@ export interface CartItem {
   title: string;
   code: string;
   size: string; // e.g. "100см x 200см"
-  width: number;
-  height: number;
-  material: string;
-  pricePerM2: number;
+  width?: number;
+  height?: number;
+  material?: string;
+  pricePerM2?: number;
   imageUrl?: string;
   options: CartItemOption[];
   total: number;
+  quantity?: number; // Added quantity property
 }
 
 interface CartContextType {
@@ -26,6 +27,7 @@ interface CartContextType {
   addToCart: (item: Omit<CartItem, "id">) => void;
   removeFromCart: (id: string) => void;
   clearCart: () => void;
+  isLoaded: boolean;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -34,6 +36,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Load cart from local storage on mount
   useEffect(() => {
@@ -45,6 +48,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
         console.error("Failed to parse cart from local storage", e);
       }
     }
+    setIsLoaded(true);
   }, []);
 
   // Save cart to local storage whenever it changes
@@ -67,7 +71,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
   return (
     <CartContext.Provider
-      value={{ items, addToCart, removeFromCart, clearCart }}
+      value={{ items, addToCart, removeFromCart, clearCart, isLoaded }}
     >
       {children}
     </CartContext.Provider>

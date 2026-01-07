@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/wallpapers/hexagon-pattern":{},"/wallpapers/floral-vintage":{}},"dynamicRoutes":{"/wallpapers/[slug]":{"fallback":null}},"notFoundRoutes":[],"preview":{"previewModeId":"21f571b6f8e97d7364f29c4ab0c069f6","previewModeSigningKey":"393724bd76ba03c46d343d782979d6c0af966dd51fce18dde4560d0d5e4d0e6b","previewModeEncryptionKey":"d85a64f3c159980b9d66fd22baa6701921b83ff97b677e38007a5821ff9723df"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "eeb76872b90cf2522b9077279836c4be",
+    "previewModeSigningKey": "b851bdcf6f39e0626cd20b4c3b6d55c994797721b1452cdbaad9fc0d883a923d",
+    "previewModeEncryptionKey": "9d35cc9695938bb006fec68f5588f3a129470797e64a7627613f39fdcb654403"
+  }
+}

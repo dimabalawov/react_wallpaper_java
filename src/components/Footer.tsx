@@ -9,7 +9,6 @@ const Footer: React.FC = () => (
     >
       {/* Left: Logo and About */}
       <div className="flex flex-col items-start">
-        {/* Replace <img> with Next.js <Image> for logo */}
         <Image
           src="/logo_footer.png"
           alt="Логотип"

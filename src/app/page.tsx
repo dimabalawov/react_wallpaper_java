@@ -14,8 +14,8 @@ export default function Home() {
       <div className="flex flex-col px-[clamp(1rem,6vw,7.5rem)] gap-y-20 xl:gap-y-30 py-14 lg:py-20">
         <div className="flex flex-col gap-y-8 gap-x-10 md:flex-row">
           <CategoryPreview title="Фотошпалери" link="/wallpapers" />
-          <CategoryPreview title="Сувеніри" />
-          <CategoryPreview title="Поліграфія" />
+          <CategoryPreview title="Сувеніри" link="/souvenirs" />
+          <CategoryPreview title="Поліграфія" link="/printing" />
         </div>
         <div className="flex flex-col items-center">
           <h2 className="text-navy font-semibold text-3xl md:text-4xl mb-13">
@@ -59,41 +59,23 @@ export default function Home() {
               title="Казковий ліс"
               price="450 грн/м²"
               oldPrice="450 грн/м²"
+              slug="kazkoviy-lis-1"
             />
             <ProductPreview
               title="Казковий ліс"
               price="450 грн/м²"
               oldPrice="450 грн/м²"
+              slug="kazkoviy-lis-2"
             />
             <ProductPreview
               title="Казковий ліс"
               price="450 грн/м²"
-              oldPrice="450 грн/м²"
+              slug="kazkoviy-lis-3"
             />
             <ProductPreview
               title="Казковий ліс"
               price="450 грн/м²"
-              oldPrice="450 грн/м²"
-            />
-            <ProductPreview
-              title="Казковий ліс"
-              price="450 грн/м²"
-              oldPrice="450 грн/м²"
-            />
-            <ProductPreview
-              title="Казковий ліс"
-              price="450 грн/м²"
-              oldPrice="450 грн/м²"
-            />
-            <ProductPreview
-              title="Казковий ліс"
-              price="450 грн/м²"
-              oldPrice="450 грн/м²"
-            />
-            <ProductPreview
-              title="Казковий ліс"
-              price="450 грн/м²"
-              oldPrice="450 грн/м²"
+              slug="kazkoviy-lis-4"
             />
           </div>
         </div>

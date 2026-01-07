@@ -20,23 +20,23 @@ export default function DimensionInput({
   icon,
 }: DimensionInputProps) {
   return (
-    <div>
-      <div className="text-xl text-navy mb-1">{label}</div>
-      <div className="flex flex-row items-center rounded-lg overflow-hidden w-auto h-10 py-4 px-3 border border-teal">
-        {icon && <div className="flex text-2xl mr-2">{icon}</div>}
-        <div className="flex ml-2">
-          <input
-            type="number"
-            value={value}
-            min={min}
-            max={max}
-            onChange={(e) => onChange(Number(e.target.value))}
-            className="text-center min-w-12 sm:min-w-15 text-black outline-none bg-transparent text-lg font-normal"
-          />
-        </div>
-        <div className="text-navy text-lg ml-2">{unit}</div>
+    <div className="flex-1">
+      <div className="text-sm text-gray-500 mb-2 font-medium uppercase tracking-wider">
+        {label}
       </div>
-      <div className="text-navy text-sm mt-2 text-right">
+      <div className="flex items-center bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 focus-within:ring-2 focus-within:ring-teal/20 focus-within:border-teal transition-all">
+        {icon && <div className="text-gray-400 mr-3">{icon}</div>}
+        <input
+          type="number"
+          value={value}
+          min={min}
+          max={max}
+          onChange={(e) => onChange(Number(e.target.value))}
+          className="w-full bg-transparent text-navy font-bold text-lg outline-none"
+        />
+        <div className="text-gray-400 font-medium ml-2">{unit}</div>
+      </div>
+      <div className="text-xs text-gray-400 mt-2 text-right">
         = {(value / 100).toFixed(2)} м
       </div>
     </div>

@@ -6,10 +6,16 @@ import Link from "next/link";
 import SearchIcon from "./Media/Search";
 import CartIcon from "./Media/Cart";
 import UserIcon from "./Media/User";
+import { useAuth } from "@/context/AuthContext";
 import {
   Disclosure,
   DisclosureButton,
   DisclosurePanel,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
 } from "@headlessui/react";
 
 const iconProps = { width: 24, height: 24, fill: "#2F4156" };
@@ -27,14 +33,16 @@ const navLinks = [
       "Квіти",
     ],
   },
-  { label: "Сувеніри", href: "/", subcategories: [] },
-  { label: "Поліграфія", href: "/", subcategories: [] },
+  { label: "Сувеніри", href: "/souvenirs", subcategories: [] },
+  { label: "Поліграфія", href: "/printing", subcategories: [] },
 ];
 
 const Header: React.FC = () => {
   const [openCategory, setOpenCategory] = React.useState<string | null>(
     navLinks[0].label
   );
+  const { user, logout } = useAuth();
+
   return (
     <Disclosure as="nav" className="bg-white text-black w-full">
       <div className="w-full px-4 sm:px-8 lg:px-16 xl:px-32">
@@ -80,9 +88,45 @@ const Header: React.FC = () => {
           {/* Icons (Right) */}
           <div className="flex items-center gap-6">
             <SearchIcon {...iconProps} />
-            <Link href="/login" className="cursor-pointer">
-              <UserIcon {...iconProps} />
-            </Link>
+
+            {user ? (
+              <Menu as="div" className="relative">
+                <MenuButton className="flex items-center gap-2 focus:outline-none">
+                  <UserIcon {...iconProps} />
+                  <span className="hidden sm:block text-sm font-medium text-navy truncate max-w-[100px]">
+                    {user.username}
+                  </span>
+                </MenuButton>
+                <Transition
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+                >
+                  <MenuItems className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                    <MenuItem>
+                      {({ active }) => (
+                        <button
+                          onClick={logout}
+                          className={`${
+                            active ? "bg-gray-100" : ""
+                          } block w-full px-4 py-2 text-left text-sm text-gray-700`}
+                        >
+                          Вийти
+                        </button>
+                      )}
+                    </MenuItem>
+                  </MenuItems>
+                </Transition>
+              </Menu>
+            ) : (
+              <Link href="/login" className="cursor-pointer">
+                <UserIcon {...iconProps} />
+              </Link>
+            )}
+
             <Link href="/cart" className="cursor-pointer">
               <CartIcon {...iconProps} />
             </Link>

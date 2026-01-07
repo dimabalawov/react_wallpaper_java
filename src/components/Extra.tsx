@@ -16,22 +16,41 @@ const Extra: React.FC<ExtraProps> = ({
   heading,
   desc,
   price,
-  inputClassName = "accent-teal self-start mt-2 mr-3",
-  labelClassName = "flex flex-row cursor-pointer",
 }) => (
-  <label className={labelClassName}>
-    <input
-      type="checkbox"
-      checked={checked}
-      onChange={(e) => onChange(e.target.checked)}
-      className={inputClassName}
-    />
-    <div className="flex flex-col w-full">
-      <div className="flex flex-row w-full">
-        <div className="flex-1 sm:text-lg font-semibold">{heading}</div>
-        <div className="font-semibold sm:text-lg ml-4">{price}</div>
+  <label
+    className={`flex items-start p-4 rounded-xl border-2 cursor-pointer transition-all ${
+      checked
+        ? "border-teal bg-teal/5 shadow-sm"
+        : "border-gray-100 bg-white hover:border-gray-200 hover:shadow-sm"
+    }`}
+  >
+    <div className="relative flex items-center justify-center w-5 h-5 mt-1 mr-4">
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="peer appearance-none w-5 h-5 border-2 border-gray-300 rounded-md checked:border-teal checked:bg-teal transition-colors"
+      />
+      <svg
+        className="absolute w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        strokeWidth={3}
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+      </svg>
+    </div>
+    <div className="flex-1">
+      <div className="flex justify-between items-start mb-1">
+        <div
+          className={`font-bold text-lg ${checked ? "text-teal" : "text-navy"}`}
+        >
+          {heading}
+        </div>
+        <div className="font-bold text-teal ml-4">{price}</div>
       </div>
-      <div className="text-sm sm:text-[16px] font-normal mt-2">{desc}</div>
+      <div className="text-gray-500 text-sm leading-relaxed">{desc}</div>
     </div>
   </label>
 );

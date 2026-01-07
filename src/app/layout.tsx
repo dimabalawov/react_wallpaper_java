@@ -6,6 +6,8 @@ import Footer from "@/components/Footer";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,11 +34,31 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
       >
-        <CartProvider>
-          <Header />
-          <main className="flex-grow">{children}</main>
-          <Footer />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+            <Toaster
+              position="bottom-right"
+              toastOptions={{
+                style: {
+                  background: "#2F4156",
+                  color: "#fff",
+                  padding: "16px",
+                  fontSize: "1.125rem",
+                  maxWidth: "500px",
+                },
+                success: {
+                  iconTheme: {
+                    primary: "#567C8D",
+                    secondary: "#fff",
+                  },
+                },
+              }}
+            />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

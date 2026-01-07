@@ -18,3 +18,19 @@ export interface WallpaperProduct {
   rooms: string[];
   slug: string;
 }
+
+export interface SouvenirProduct {
+  id: string;
+  name: string;
+  article: string;
+  basePrice: number;
+  salePrice?: number;
+  image: string;
+  description: string;
+  features?: string;
+  width?: number;
+  length?: number;
+  thickness?: number;
+  slug: string;
+  categories: WallpaperCategory[];
+}
