@@ -68,7 +68,9 @@ export async function generateStaticParams() {
       productList = data.content;
     }
 
-    return productList.map((p: { slug: string }) => ({ slug: p.slug }));
+    return productList.map((p) => ({
+      slug: p.slug,
+    }));
   } catch (error) {
     console.error("Error generating static params for souvenirs:", error);
     return [];

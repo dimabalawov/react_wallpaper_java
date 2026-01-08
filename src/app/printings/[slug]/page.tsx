@@ -73,6 +73,10 @@ export async function generateStaticParams() {
     }));
   } catch (error) {
     console.error("Error generating static params for printings:", error);
+    // Return empty array instead of failing, allowing build to proceed
+    // The specific pages will then be generated on demand if not using 'export'
+    // But since we are using 'export', this might result in those pages being missing from build
+    // This is better than breaking the whole build.
     return [];
   }
 }

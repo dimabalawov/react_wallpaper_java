@@ -1,9 +1,6 @@
 {
   "/cart/page": "app/cart/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
   "/page": "app/page.js",
-  "/printings/page": "app/printings/page.js",
-  "/souvenirs/page": "app/souvenirs/page.js",
   "/user/page": "app/user/page.js",
   "/wallpapers/page": "app/wallpapers/page.js"
 }
