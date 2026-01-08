@@ -1,5 +1,5 @@
 import ProductClient from "@/components/ProductClient";
-import {ExtraFeature, WallpaperProduct} from "@/interfaces/wallpaper";
+import {ExtraFeature, WallpaperProduct} from "@/interfaces/product";
 import {notFound} from "next/navigation";
 
 interface ProductPageProps {

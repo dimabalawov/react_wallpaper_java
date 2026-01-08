@@ -15,6 +15,10 @@ export interface BaseProductAutocomplete {
     name: string;
     article: string;
     productType: ProductType;
+    slug: string;
+    image: string;
+    basePrice: number;
+    salePrice?: number;
 }
 
 export interface WallpaperProduct extends BaseProduct {
@@ -47,6 +51,13 @@ export interface WallpaperMaterial {
     id: string;
     name: string;
     description: string;
+}
+
+export interface PrintMethod {
+    id: string;
+    name: string;
+    description: string;
+    deadline: number;
 }
 
 

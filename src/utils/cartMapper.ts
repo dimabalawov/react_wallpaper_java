@@ -1,4 +1,4 @@
-﻿import {ExtraFeature, SouvenirProduct, WallpaperProduct} from "@/interfaces/wallpaper";
+﻿import {ExtraFeature, SouvenirProduct, WallpaperProduct} from "@/interfaces/product";
 
 interface CartMapperParams {
     product: WallpaperProduct | SouvenirProduct;

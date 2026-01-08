@@ -1,5 +1,5 @@
 import SouvenirClient from "@/components/SouvenirClient";
-import { ExtraFeature, SouvenirProduct } from "@/interfaces/wallpaper"; // Assuming SouvenirProduct is here
+import { ExtraFeature, SouvenirProduct } from "@/interfaces/product"; // Assuming SouvenirProduct is here
 import { notFound } from "next/navigation";
 
 // Define the ProductType interface if not already imported

@@ -8,7 +8,7 @@ import Extra from "@/components/Extra";
 import Material from "@/components/Material";
 import { useCart } from "@/context/CartContext";
 import toast from "react-hot-toast";
-import {ExtraFeature, WallpaperProduct} from "@/interfaces/wallpaper";
+import {ExtraFeature, WallpaperProduct} from "@/interfaces/product";
 import {mapProductToCartItem} from "@/utils/cartMapper";
 
 interface ProductClientProps {

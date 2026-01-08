@@ -3,8 +3,9 @@ import CategorySidebar from "@/components/CategorySidebar";
 import { Pagination } from "@mui/material";
 import ProductPreview from "@/components/ProductPreview";
 import React, { useEffect, useState } from "react";
-import { WallpaperProduct } from "@/interfaces/wallpaper";
-import CatalogSearch from "@/components/CatalogSearch"; // Ensure this component is created
+import { WallpaperProduct } from "@/interfaces/product";
+import CatalogSearch from "@/components/CatalogSearch";
+import CatalogFilters, { FilterState } from "@/components/CatalogFilters"; // Import the filter component
 
 export default function WallpapersPage() {
     const [categories, setCategories] = useState([]);
@@ -15,37 +16,40 @@ export default function WallpapersPage() {
     const [totalPages, setTotalPages] = useState<number>(1);
     const [selectedCategoryId, setSelectedCategoryId] = useState<string | null>(null);
     const [searchTerm, setSearchTerm] = useState("");
+
+    // New state for additional filters (Price, etc.)
+    const [extraFilters, setExtraFilters] = useState<FilterState>({});
+
     const isSearching = searchTerm.length > 0;
 
     useEffect(() => {
         setLoading(true);
         setError(null);
 
-        // 1. Construct URL with Search and Filter parameters
-        // 'name' maps to the field in your WallpaperFilter DTO on the backend
-        let url = `http://localhost:8080/wallpapers?page=${page - 1}&size=6`;
+        // 1. Construct URL using URLSearchParams for cleaner code
+        const params = new URLSearchParams({
+            page: (page - 1).toString(),
+            size: "6",
+        });
 
-        if (selectedCategoryId) {
-            url += `&categoryId=${selectedCategoryId}`;
+        if (selectedCategoryId) params.append("categoryId", selectedCategoryId);
+        if (searchTerm) params.append("name", searchTerm);
+
+        if (extraFilters.basePrice) {
+            params.append("basePrice", extraFilters.basePrice.toString());
         }
 
-        if (searchTerm) {
-            url += `&name=${encodeURIComponent(searchTerm)}`;
-        }
-
-        fetch(url)
+        fetch(`http://localhost:8080/wallpapers?${params.toString()}`)
             .then((res) => {
-                if (!res.ok) throw new Error("Network response was not ok");
+                if (!res.ok) throw new Error("Помилка завантаження");
                 return res.json();
             })
             .then((data) => {
-                // Handle the nested structure from WallpaperCatalogResponse
                 if (data.products && Array.isArray(data.products.content)) {
                     if (categories.length === 0) setCategories(data.availableCategories);
                     setProducts(data.products.content);
                     setTotalPages(data.products.totalPages);
-                }
-                else if (Array.isArray(data.content)) {
+                } else if (Array.isArray(data.content)) {
                     setProducts(data.content);
                     setTotalPages(data.totalPages);
                 } else {
@@ -58,62 +62,59 @@ export default function WallpapersPage() {
             })
             .finally(() => setLoading(false));
 
-    }, [page, selectedCategoryId, searchTerm, categories.length]);
+    }, [page, selectedCategoryId, searchTerm, extraFilters, categories.length]);
 
-    const handlePageChange = (
-        event: React.ChangeEvent<unknown>,
-        value: number
-    ) => {
+    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
         window.scrollTo({ top: 0, behavior: "smooth" });
     };
 
     const handleCategoryClick = (categoryId: string) => {
         setSelectedCategoryId(categoryId);
-        setPage(1); // Reset to first page when category changes
+        setPage(1);
     };
 
     const handleSearchChange = (value: string) => {
         setSearchTerm(value);
-        setPage(1); // Reset to first page when searching
+        setPage(1);
     };
 
+    const handleFilterUpdate = React.useCallback((newFilters: FilterState) => {
+        setExtraFilters(prev => {
+            if (JSON.stringify(prev) === JSON.stringify(newFilters)) return prev;
+            return newFilters;
+        });
+        setPage(1);
+    }, []);
+
     const paginationSx = {
-        "& .MuiPaginationItem-root": {
-            color: "#2F4157",
-            fontSize: "1rem",
-            "@media (max-width: 400px)": {
-                fontSize: "0.85rem",
-                minWidth: "1.7rem",
-                height: "1.7rem",
-            },
-        },
-        "& .Mui-selected": {
-            backgroundColor: "#F5F3F0",
-            color: "#2F4157",
-        },
+        "& .MuiPaginationItem-root": { color: "#2F4157", fontSize: "1rem" },
+        "& .Mui-selected": { backgroundColor: "#F5F3F0", color: "#2F4157" },
         "& .MuiPaginationItem-previousNext": {
             backgroundColor: "#577C8E",
             color: "#fff",
-            transition: "background 0.2s, color 0.2s, border 0.2s",
-            border: "2px solid transparent",
-            "&:hover": {
-                backgroundColor: "#fff",
-                color: "#577C8E",
-                border: "2px solid #577C8E",
-            },
+            "&:hover": { backgroundColor: "#fff", color: "#577C8E", border: "2px solid #577C8E" },
         },
     };
 
     return (
-        <div className="flex flex-row px-[clamp(1rem,6vw,7.5rem)] gap-y-20 xl:gap-y-30 py-4 lg:py-8">
-            <CategorySidebar
-                categories={categories}
-                onCategoryClick={handleCategoryClick}
-                activeCategory={selectedCategoryId!}
-            />
+        <div className="flex flex-col lg:flex-row px-[clamp(1rem,6vw,7.5rem)] gap-8 py-4 lg:py-8">
+            {/* SIDEBAR AREA */}
+            <aside className="w-full lg:w-72 flex-shrink-0 space-y-6">
+                <CategorySidebar
+                    categories={categories}
+                    onCategoryClick={handleCategoryClick}
+                    activeCategory={selectedCategoryId!}
+                />
 
-            <div className="flex flex-col w-full lg:ml-8">
+                {/* FILTER COMPONENT */}
+                <CatalogFilters
+                    type="WALLPAPER"
+                    onFilterChange={handleFilterUpdate}
+                />
+            </aside>
+
+            <div className="flex flex-col w-full lg:ml-2">
                 <h2 className="text-navy font-semibold text-2xl md:text-3xl mb-6">
                     Фотошпалери
                 </h2>
@@ -154,17 +155,14 @@ export default function WallpapersPage() {
                                         ? `http://localhost:8080${product.image}`
                                         : product.image;
 
-                                    const finalPrice = product.salePrice ?? product.basePrice;
-                                    const isSale = product.salePrice != null && product.salePrice < product.basePrice;
-
                                     return (
                                         <ProductPreview
                                             key={product.id || idx}
                                             title={product.name}
                                             imageUrl={imageUrl}
                                             code={product.article}
-                                            price={`${finalPrice} грн/м²`}
-                                            oldPrice={isSale ? `${product.basePrice} грн/м²` : undefined}
+                                            price={`${product.salePrice ?? product.basePrice} грн/м²`}
+                                            oldPrice={product.salePrice ? `${product.basePrice} грн/м²` : undefined}
                                             slug={product.slug}
                                             basePath="/wallpapers"
                                         />

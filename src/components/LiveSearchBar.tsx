@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {BaseProductAutocomplete} from "@/interfaces/wallpaper";
+import {BaseProductAutocomplete} from "@/interfaces/product";
 
 export default function LiveSearchBar() {
     const [query, setQuery] = useState("");
@@ -69,8 +69,8 @@ export default function LiveSearchBar() {
                     {results.length > 0 ? (
                         <div className="flex flex-col">
                             {results.map((product) => {
-                                const getBasePath = (type: string) => {
-                                    switch (type) {
+                                const getBasePath = (type: ProductType) => {
+                                    switch (type.name) {
                                         case "SOUVENIR": return "/souvenirs";
                                         case "WALLPAPER": return "/wallpapers";
                                         case "PRINTING": return "/printings";

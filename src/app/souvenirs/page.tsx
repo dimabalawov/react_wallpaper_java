@@ -2,9 +2,10 @@
 import CategorySidebar from "@/components/CategorySidebar";
 import { Pagination } from "@mui/material";
 import ProductPreview from "@/components/ProductPreview";
-import React, { useEffect, useState } from "react";
-import {Category, WallpaperProduct} from "@/interfaces/wallpaper";
-import CatalogSearch from "@/components/CatalogSearch"; // Reusable search component
+import React, {useCallback, useEffect, useState} from "react";
+import {Category, WallpaperProduct} from "@/interfaces/product";
+import CatalogSearch from "@/components/CatalogSearch";
+import CatalogFilters, {FilterState} from "@/components/CatalogFilters"; // Reusable search component
 
 export default function SouvenirsPage() {
     const [products, setProducts] = useState<WallpaperProduct[]>([]);
@@ -15,54 +16,45 @@ export default function SouvenirsPage() {
     const [page, setPage] = useState<number>(1);
     const [totalPages, setTotalPages] = useState<number>(1);
     const [searchTerm, setSearchTerm] = useState("");
-
-    // Derived state to determine if user is currently filtering by text
     const isSearching = searchTerm.length > 0;
+    const [extraFilters, setExtraFilters] = useState<FilterState>({});
 
     useEffect(() => {
         setLoading(true);
         setError(null);
 
-        // Build the query parameters
-        let url = `http://localhost:8080/souvenirs?page=${page - 1}&size=6`;
+        const params = new URLSearchParams({
+            page: (page - 1).toString(),
+            size: "6",
+        });
 
-        if (selectedCategory) {
-            url += `&categoryId=${selectedCategory}`;
+        if (selectedCategory) params.append("categoryId", selectedCategory);
+        if (searchTerm) params.append("name", searchTerm);
+
+        if (extraFilters.basePrice) {
+            params.append("basePrice", extraFilters.basePrice.toString());
         }
 
-        if (searchTerm) {
-            url += `&name=${encodeURIComponent(searchTerm)}`;
-        }
-
-        fetch(url)
+        fetch(`http://localhost:8080/souvenirs?${params.toString()}`)
             .then((res) => {
-                if (!res.ok) throw new Error("Network response was not ok");
+                if (!res.ok) throw new Error("Помилка завантаження");
                 return res.json();
             })
             .then((data) => {
-                // Handle response from SouvenirCatalogResponse
-                if (data.availableCategories && Array.isArray(data.availableCategories)) {
-                    // Only set categories if they haven't been loaded yet to prevent flickering
-                    if (categories.length === 0) setCategories(data.availableCategories);
+                if (data.availableCategories && categories.length === 0) {
+                    setCategories(data.availableCategories);
                 }
-
-                if (data.products && Array.isArray(data.products.content)) {
+                if (data.products?.content) {
                     setProducts(data.products.content);
                     setTotalPages(data.products.totalPages);
-                } else if (Array.isArray(data.content)) {
-                    setProducts(data.content);
-                    setTotalPages(data.totalPages);
                 } else {
-                    setProducts([]);
-                    if (!searchTerm) setError("Unexpected response format");
+                    setProducts(data.content || []);
+                    setTotalPages(data.totalPages || 1);
                 }
             })
-            .catch((err) => {
-                setError(err.message || "Failed to fetch products");
-                setProducts([]);
-            })
+            .catch((err) => setError(err.message))
             .finally(() => setLoading(false));
-    }, [page, selectedCategory, searchTerm, categories.length]);
+    }, [page, selectedCategory, searchTerm, extraFilters, categories.length]);
 
     const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
@@ -78,6 +70,14 @@ export default function SouvenirsPage() {
         setSearchTerm(value);
         setPage(1); // Reset to first page on new search
     };
+
+    const handleFilterUpdate = useCallback((newFilters: FilterState) => {
+        setExtraFilters(prev => {
+            if (JSON.stringify(prev) === JSON.stringify(newFilters)) return prev;
+            return newFilters;
+        });
+        setPage(1);
+    }, []);
 
     const paginationSx = {
         "& .MuiPaginationItem-root": {
@@ -107,19 +107,28 @@ export default function SouvenirsPage() {
     };
 
     return (
-        <div className="flex flex-row px-[clamp(1rem,6vw,7.5rem)] gap-y-20 xl:gap-y-30 py-4 lg:py-8">
-            <CategorySidebar
-                categories={categories}
-                activeCategory={selectedCategory || undefined}
-                onCategoryClick={handleCategoryClick}
-            />
+        <div className="flex flex-col lg:flex-row px-[clamp(1rem,6vw,7.5rem)] gap-8 py-4 lg:py-8">
+            {/* 1. STABLE SIDEBAR: Always rendered, never unmounts during loading */}
+            <aside className="w-full lg:w-72 flex-shrink-0 space-y-6">
+                <CategorySidebar
+                    categories={categories}
+                    activeCategory={selectedCategory || undefined}
+                    onCategoryClick={handleCategoryClick}
+                />
 
-            <div className="flex flex-col w-full lg:ml-8">
+                {/* Price filter component */}
+                <CatalogFilters
+                    type="SOUVENIR"
+                    onFilterChange={handleFilterUpdate}
+                />
+            </aside>
+
+            {/* 2. CONTENT AREA */}
+            <div className="flex flex-col w-full lg:ml-2">
                 <h2 className="text-navy font-semibold text-2xl md:text-3xl mb-6">
                     Сувеніри
                 </h2>
 
-                {/* Reusable Search Component */}
                 <CatalogSearch
                     onSearchChange={handleSearchChange}
                     placeholder="Пошук сувенірів за назвою..."
@@ -136,60 +145,66 @@ export default function SouvenirsPage() {
                     />
                     {isSearching && products.length > 0 && (
                         <span className="text-gray-400 text-sm italic">
-                            Знайдено: {products.length} товарів
-                        </span>
+                        Знайдено: {products.length} товарів
+                    </span>
                     )}
                 </div>
 
-                {loading ? (
-                    <div className="flex justify-center py-20 text-gray-400 animate-pulse">
-                        Завантаження...
-                    </div>
-                ) : error ? (
-                    <div className="text-red-500 py-10 text-center">{error}</div>
-                ) : (
-                    <>
-                        <div className="grid w-full grid-cols-2 xl:grid-cols-3 gap-[clamp(1rem,2vw,2.5rem)]">
-                            {products.length > 0 ? (
-                                products.map((product, idx) => {
-                                    const imageUrl = product.image?.startsWith("/")
-                                        ? `http://localhost:8080${product.image}`
-                                        : product.image;
-                                    const finalPrice = product.salePrice ?? product.basePrice;
-                                    const isSale = product.salePrice != null && product.salePrice < product.basePrice;
-
-                                    return (
-                                        <ProductPreview
-                                            key={product.id || idx}
-                                            title={product.name}
-                                            imageUrl={imageUrl}
-                                            code={product.article}
-                                            price={`${finalPrice} грн/шт`}
-                                            oldPrice={isSale ? `${product.basePrice} грн/шт` : undefined}
-                                            slug={product.slug}
-                                            basePath="/souvenirs"
-                                        />
-                                    );
-                                })
-                            ) : (
-                                <div className="col-span-full py-20 text-center text-gray-500 italic">
-                                    Нічого не знайдено
-                                </div>
-                            )}
+                {/* 3. DYNAMIC RESULTS AREA */}
+                <div className="relative min-h-[400px]">
+                    {loading ? (
+                        <div className="flex justify-center py-20 text-gray-400">
+                            {/* Use a spinner or simple pulse text */}
+                            <div className="animate-pulse">Оновлення каталогу...</div>
                         </div>
+                    ) : error ? (
+                        <div className="text-red-500 py-10 text-center">{error}</div>
+                    ) : (
+                        <>
+                            <div className="grid w-full grid-cols-2 xl:grid-cols-3 gap-[clamp(1rem,2vw,2.5rem)]">
+                                {products.length > 0 ? (
+                                    products.map((product, idx) => {
+                                        const imageUrl = product.image?.startsWith("/")
+                                            ? `http://localhost:8080${product.image}`
+                                            : product.image;
 
-                        <div className="mt-12 flex justify-center">
-                            <Pagination
-                                count={totalPages}
-                                page={page}
-                                onChange={handlePageChange}
-                                shape="rounded"
-                                size="large"
-                                sx={paginationSx}
-                            />
-                        </div>
-                    </>
-                )}
+                                        // Logic for effective price display
+                                        const finalPrice = product.salePrice ?? product.basePrice;
+                                        const isSale = product.salePrice != null && product.salePrice < product.basePrice;
+
+                                        return (
+                                            <ProductPreview
+                                                key={product.id || idx}
+                                                title={product.name}
+                                                imageUrl={imageUrl}
+                                                code={product.article}
+                                                price={`${finalPrice} грн/шт`}
+                                                oldPrice={isSale ? `${product.basePrice} грн/шт` : undefined}
+                                                slug={product.slug}
+                                                basePath="/souvenirs"
+                                            />
+                                        );
+                                    })
+                                ) : (
+                                    <div className="col-span-full py-20 text-center text-gray-500 italic">
+                                        Нічого не знайдено
+                                    </div>
+                                )}
+                            </div>
+
+                            <div className="mt-12 flex justify-center">
+                                <Pagination
+                                    count={totalPages}
+                                    page={page}
+                                    onChange={handlePageChange}
+                                    shape="rounded"
+                                    size="large"
+                                    sx={paginationSx}
+                                />
+                            </div>
+                        </>
+                    )}
+                </div>
             </div>
         </div>
     );
