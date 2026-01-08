@@ -7,6 +7,8 @@ interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
+export const dynamicParams = true;
+
 export default async function PrintingPage({ params }: ProductPageProps) {
   const { slug } = await params;
 

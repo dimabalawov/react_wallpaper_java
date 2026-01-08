@@ -1,16 +1,1 @@
-{
-  "/_not-found/page": "app/_not-found/page.js",
-  "/cart/page": "app/cart/page.js",
-  "/checkout/page": "app/checkout/page.js",
-  "/checkout/success/page": "app/checkout/success/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/login/page": "app/login/page.js",
-  "/page": "app/page.js",
-  "/printings/[slug]/page": "app/printings/[slug]/page.js",
-  "/printings/page": "app/printings/page.js",
-  "/souvenirs/[slug]/page": "app/souvenirs/[slug]/page.js",
-  "/souvenirs/page": "app/souvenirs/page.js",
-  "/user/page": "app/user/page.js",
-  "/wallpapers/[slug]/page": "app/wallpapers/[slug]/page.js",
-  "/wallpapers/page": "app/wallpapers/page.js"
-}
+{}
