@@ -10,18 +10,18 @@ export interface BaseProduct {
     categories: Category[];
 }
 
+export interface BaseProductAutocomplete {
+    id: string;
+    name: string;
+    article: string;
+    productType: ProductType;
+}
+
 export interface WallpaperProduct extends BaseProduct {
     density: number;
     waterproof: boolean;
     rooms: string[];
     materials: WallpaperMaterial[];
-}
-
-export interface WallpaperCategory {
-  id: string;
-  image: string;
-  name: string;
-  salePrice: number;
 }
 
 export interface SouvenirProduct extends BaseProduct {

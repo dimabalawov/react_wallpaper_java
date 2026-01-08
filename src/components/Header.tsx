@@ -17,6 +17,7 @@ import {
   MenuItems,
   Transition,
 } from "@headlessui/react";
+import LiveSearchBar from "@/components/LiveSearchBar";
 
 const iconProps = { width: 24, height: 24, fill: "#2F4156" };
 
@@ -71,6 +72,9 @@ const Header: React.FC = () => {
               <Image src="/logo.png" alt="Logo" width={92} height={44} />
             </Link>
           </div>
+            <div className="hidden lg:block flex-1 max-w-md mx-4">
+                <LiveSearchBar />
+            </div>
           {/* Desktop Links (Center) */}
           <div className="hidden lg:flex flex-1 justify-center">
             <div className="flex gap-6 uppercase">

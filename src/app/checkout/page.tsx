@@ -1,19 +1,18 @@
 "use client";
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import {useCart} from "@/context/CartContext";
 import {useRouter} from "next/navigation";
 import {
-    MOCK_NOVA_WAREHOUSES,
     MOCK_NOVA_POSHTAMATS,
-    MOCK_UKR_WAREHOUSES,
+    MOCK_NOVA_WAREHOUSES,
     MOCK_PICKUP_LOCATIONS,
+    MOCK_UKR_WAREHOUSES,
 } from "@/data/mockDelivery";
 import ContactForm from "@/components/Checkout/ContactForm";
 import DeliveryForm from "@/components/Checkout/DeliveryForm";
 import PaymentForm from "@/components/Checkout/PaymentForm";
 import OrderSummary from "@/components/Checkout/OrderSummary";
-import {useCatalog} from "@/app/catalog/catalog-context";
 
 export default function CheckoutPage() {
     const {items, isLoaded, clearCart} = useCart();
@@ -99,13 +98,13 @@ export default function CheckoutPage() {
     const handleOrderSubmit = async () => {
         const newErrors: Record<string, boolean> = {};
 
-        // Basic fields
+        // 1. Basic fields validation
         if (!formData.lastName.trim()) newErrors.lastName = true;
         if (!formData.firstName.trim()) newErrors.firstName = true;
         if (!formData.phone.trim()) newErrors.phone = true;
         if (!formData.email.trim()) newErrors.email = true;
 
-        // Delivery Validation
+        // 2. Delivery Validation
         let isDeliveryValid = true;
         if (deliveryMethod === "nova") {
             if (novaType === "courier") {
@@ -144,6 +143,7 @@ export default function CheckoutPage() {
                 return;
             }
 
+            // 3. Construct Order Items
             const orderItems = items.map((item) => ({
                 productTypeId: item.productType?.id,
                 productId: item.productId,
@@ -156,19 +156,21 @@ export default function CheckoutPage() {
                 }))
             }));
 
-            // Construct the full payload with form data, just in case backend expects it (even if one use-case ignores it)
-            // and to avoid 400/500 errors if strict validation is on.
+            console.log(orderItems)
+
+            // 4. Construct Payload
             const payload = {
                 items: orderItems,
-                // Include form data at root level, adhering to common patterns
-                // If backend ignores these, it's fine (unless strict mapping is on, but missing fields is worse for validators)
-                // ...formData,
-                // deliveryMethod,
-                // paymentMethod,
-                // novaType: deliveryMethod === 'nova' ? novaType : undefined,
-                // warehouseId: selectedLocation || undefined
-            };
 
+
+                // You can uncomment these if your backend starts accepting delivery info:
+                // lastName: formData.lastName,
+                // firstName: formData.firstName,
+                // phone: formData.phone,
+                // email: formData.email,
+                // deliveryMethod: deliveryMethod,
+                // warehouseId: selectedLocation
+            };
 
             const response = await fetch("http://localhost:8080/orders", {
                 method: "POST",
@@ -179,44 +181,48 @@ export default function CheckoutPage() {
                 body: JSON.stringify(payload),
             });
 
-            const data = await response.json();
+            // 5. Handle Response
+            // We read as text first so we can use it for both logging and JSON parsing
+            const responseText = await response.text();
 
             console.log("Status Code:", response.status);
-            console.log("Server Data:", data);
 
             if (!response.ok) {
-                console.error("Server 500 Error Details:", errorText);
-                try {
-                    const errorJson = JSON.parse(errorText);
-                    const msg = errorJson.message || errorJson.error || "Failed to submit order";
+                console.error("Server Error Raw Output:", responseText);
 
-                    // Enhanced error handling for development environment
-                    if (msg.includes("Internal Error") || msg.includes("occurred")) {
-                        throw new Error(
-                            `Server Error: ${msg}. Hint: If the backend restarted, your Cart Items or User Token might be stale (invalid IDs). Try clearing your cart and logging in again.`
-                        );
-                    }
-                    throw new Error(msg);
-                } catch (e: unknown) { // Use unknown instead of any
-                    // If the error we just threw is ours, rethrow it
-                    const err = e as Error;
-                    if (err.message && err.message.includes("Hint:")) throw err;
-                    throw new Error(`Failed to submit order: ${errorText}`);
+                let errorMessage = "Failed to submit order";
+                try {
+                    // Try to extract a clean message from JSON
+                    const errorJson = JSON.parse(responseText);
+                    errorMessage = errorJson.message || errorJson.error || errorMessage;
+                } catch {
+                    // If not JSON, use the raw text if it's short
+                    if (responseText && responseText.length < 100) errorMessage = responseText;
                 }
+
+                // Special handling for potential stale data (IDs that don't exist anymore in DB)
+                if (response.status === 500 || errorMessage.includes("Internal Error")) {
+                    throw new Error(
+                        `Server Error: ${errorMessage}. Hint: If the backend restarted, your Cart Items or User Token might be stale. Try clearing your cart and logging in again.`
+                    );
+                }
+                throw new Error(errorMessage);
             }
 
+            // 6. Success
             clearCart();
             router.push("/checkout/success");
-        } catch (error: unknown) { // Use unknown instead of any
+
+        } catch (error: unknown) {
             console.error("Error submitting order:", error);
             const err = error as Error;
             const message = err.message || "Сталася помилка при оформленні замовлення.";
 
-            // Show a more helpful alert for the stale data scenario
-            if (message.includes("backend restarted")) {
+            // Logic to help the user if the DB was wiped/restarted
+            if (message.includes("stale") || message.includes("backend restarted")) {
                 if (confirm("Помилка сервера: можливо застаріли дані кошика через перезапуск серверу. Очистити кошик?")) {
                     clearCart();
-                    router.push("/wallpapers");
+                    router.push("/");
                 }
             } else {
                 alert(message);

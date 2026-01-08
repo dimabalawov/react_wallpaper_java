@@ -1,18 +1,17 @@
 import ProductClient from "@/components/ProductClient";
 import {ExtraFeature, WallpaperProduct} from "@/interfaces/wallpaper";
-import { notFound } from "next/navigation";
-import {getProductTypes} from "@/app/catalog/catalog";
+import {notFound} from "next/navigation";
 
 interface ProductPageProps {
     params: Promise<{ slug: string }>;
 }
 
-export default async function ProductPage({ params }: ProductPageProps) {
-    const { slug } = await params;
+export default async function ProductPage({params}: ProductPageProps) {
+    const {slug} = await params;
 
     const [productRes, typesRes] = await Promise.all([
-        fetch(`http://localhost:8080/wallpapers/${slug}`, { next: { revalidate: 3600 } }),
-        fetch(`http://localhost:8080/catalog/product-types`, { next: { revalidate: 86400 } })
+        fetch(`http://localhost:8080/wallpapers/${slug}`, {next: {revalidate: 3600}}),
+        fetch(`http://localhost:8080/catalog/product-types`, {next: {revalidate: 86400}})
     ]);
 
     if (!productRes.ok) return notFound();
@@ -42,6 +41,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         />
     );
 }
+
 export async function generateStaticParams() {
     try {
         const res = await fetch("http://localhost:8080/wallpapers?size=1000");
