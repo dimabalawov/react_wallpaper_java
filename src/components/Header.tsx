@@ -35,7 +35,7 @@ const navLinks = [
     ],
   },
   { label: "Сувеніри", href: "/souvenirs", subcategories: [] },
-  { label: "Поліграфія", href: "/printing", subcategories: [] },
+  { label: "Поліграфія", href: "/printings", subcategories: [] },
 ];
 
 const Header: React.FC = () => {
@@ -91,8 +91,6 @@ const Header: React.FC = () => {
           </div>
           {/* Icons (Right) */}
           <div className="flex items-center gap-6">
-            <SearchIcon {...iconProps} />
-
             {user ? (
               <Menu as="div" className="relative">
                 <MenuButton className="flex items-center gap-2 focus:outline-none">

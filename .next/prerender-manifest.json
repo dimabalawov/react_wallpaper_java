@@ -1,1 +1,11 @@
-{"version":4,"routes":{"/souvenirs/ukrainian-trident-keychain":{},"/souvenirs/modern-ceramic-vase":{},"/souvenirs/kyiv-chestnut-magnet":{},"/souvenirs/gold-line-photo-frame":{},"/souvenirs/metal-jewelry-box":{},"/souvenirs/zen-incense-sticks-set":{},"/souvenirs/eiffel-tower-statuette":{},"/souvenirs/snow-globe":{},"/souvenirs/hand-molded-clay-mug":{},"/souvenirs/lavender-scented-candle":{},"/souvenirs/plaster-key-holder":{},"/souvenirs/hot-drink-coaster-set":{},"/souvenirs/ceramic-salt-and-pepper-shakers":{},"/souvenirs/wooden-wall-clock":{},"/souvenirs/mandala-ceramic-plate":{},"/souvenirs/velvet-decorative-pillow":{},"/souvenirs/vintage-postcard-set":{},"/souvenirs/ceramic-house-candle-holder":{},"/souvenirs/face-ceramic-planter":{},"/souvenirs/lucky-cat-figurine":{}},"dynamicRoutes":{"/souvenirs/[slug]":{"fallback":null}},"notFoundRoutes":[],"preview":{"previewModeId":"be9c7169a866eb3b38967d182e076088","previewModeSigningKey":"ac6435e33c8546ad9e3fad8301ce79d7274cd9f7965b006aac0ca4ca9d798858","previewModeEncryptionKey":"b7a76e696111f3dc8bd21066a654aff46b063b78addf7d046c0d6172ae98d7de"}}
+{
+  "version": 4,
+  "routes": {},
+  "dynamicRoutes": {},
+  "notFoundRoutes": [],
+  "preview": {
+    "previewModeId": "df943541c07b6c0de23ea09bceac25cd",
+    "previewModeSigningKey": "4f4c95306d2497afc7e5af2288cd41c2fc848bc7c383ff85e98c67975d367a3b",
+    "previewModeEncryptionKey": "b749c5968b45b34d4af7788ddea0f688596f55d3c89df396309386aafd2719ae"
+  }
+}

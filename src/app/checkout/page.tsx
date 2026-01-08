@@ -151,7 +151,7 @@ export default function CheckoutPage() {
         specifications: item.specifications,
         orderItemExtraFeatures: item.options.map((opt) => ({
           extraFeature: { id: opt.id },
-          value: opt.label,
+          value: opt.label, // This puts the feature name into 'value' (e.g. "Lamination")
         })),
       }));
 

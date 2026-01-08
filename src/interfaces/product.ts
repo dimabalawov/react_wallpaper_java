@@ -62,4 +62,8 @@ export interface PrintMethod {
     deadline: number;
 }
 
+export interface PrintingProduct extends BaseProduct {
+    methods: PrintMethod[];
+}
+
 

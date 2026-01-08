@@ -1,0 +1,7 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/printings/layout,_N_T_/printings/[slug]/layout,_N_T_/printings/[slug]/page,_N_T_/printings/notebooks-logo-a5,product-types"
+  }
+}

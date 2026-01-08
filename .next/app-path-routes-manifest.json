@@ -1,0 +1,17 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/favicon.ico/route": "/favicon.ico",
+  "/checkout/page": "/checkout",
+  "/page": "/",
+  "/cart/page": "/cart",
+  "/login/page": "/login",
+  "/printings/page": "/printings",
+  "/register/page": "/register",
+  "/checkout/success/page": "/checkout/success",
+  "/souvenirs/page": "/souvenirs",
+  "/wallpapers/page": "/wallpapers",
+  "/user/page": "/user",
+  "/printings/[slug]/page": "/printings/[slug]",
+  "/souvenirs/[slug]/page": "/souvenirs/[slug]",
+  "/wallpapers/[slug]/page": "/wallpapers/[slug]"
+}

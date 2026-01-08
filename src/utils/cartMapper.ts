@@ -1,9 +1,9 @@
-﻿import {ExtraFeature, SouvenirProduct, WallpaperProduct} from "@/interfaces/product";
+﻿import {ExtraFeature, SouvenirProduct, WallpaperProduct, PrintingProduct} from "@/interfaces/product";
 import {ProductType} from "@/interfaces/productType";
 import {CartItem} from "@/context/CartContext";
 
 interface CartMapperParams {
-    product: WallpaperProduct | SouvenirProduct;
+    product: WallpaperProduct | SouvenirProduct | PrintingProduct;
     productType?: ProductType;
     selectedFeatures: Record<string, boolean>;
     extraFeatures: ExtraFeature[];

@@ -4,12 +4,13 @@ const Banner: React.FC = () => {
   return (
     <section
       className="w-full flex flex-col items-center justify-center bg-mock  px-4 md:px-16 relative min-h-[350px] md:min-h-[500px]"
-      //   style={{
-      //     backgroundImage: "url('/gorod_noch_panorama_117682_3840x2160.jpg')",
-      //     backgroundSize: "cover",
-      //     backgroundPosition: "center",
-      //     backgroundRepeat: "no-repeat",
-      //   }}
+      style={{
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=1920&auto=format&fit=crop')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
     >
       <div className="flex flex-col gap-y-10 max-w-6xl text-center z-10 items-center">
         <h1 className="text-5xl max-md:text-3xl font-bold text-navy">
