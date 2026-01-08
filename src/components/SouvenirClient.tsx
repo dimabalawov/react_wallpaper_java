@@ -149,7 +149,7 @@ const SouvenirClient: React.FC<SouvenirClientProps> = ({ product, extraFeatures,
                                         {extraFeatures.map((feature) => (
                                             <Extra
                                                 key={feature.id}
-                                                checked={selectedFeatures[feature.id]}
+                                                checked={selectedFeatures[feature.id] ?? false}
                                                 onChange={() => toggleFeature(feature.id)}
                                                 heading={feature.name}
                                                 price={`+${feature.price} грн`}
