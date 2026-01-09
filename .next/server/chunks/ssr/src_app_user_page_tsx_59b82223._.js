@@ -42,19 +42,21 @@ const UserPage = ()=>{
                             // Convert types safely if they come as strings from API
                             const price = Number(item.purchasePrice) || 0;
                             const qty = Number(item.quantity) || 1;
+                            const totalPrice = Number(item.totalPrice) || price * qty;
                             return {
                                 ...item,
                                 // Using 'name' directly from your OrderItemHistoryResponse record
                                 productName: item.name || "Товар",
                                 price: price,
                                 quantity: qty,
-                                totalPrice: price * qty
+                                totalPrice: totalPrice
                             };
                         });
+                        const calculatedTotal = items.reduce((acc, item)=>acc + item.totalPrice, 0);
                         return {
                             id: order.id,
                             orderDate: order.createdAt || new Date().toISOString(),
-                            totalAmount: Number(order.totalPrice) || 0,
+                            totalAmount: calculatedTotal,
                             items: items
                         };
                     });
@@ -94,30 +96,30 @@ const UserPage = ()=>{
                                             children: user.username.charAt(0).toUpperCase()
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/user/page.tsx",
-                                            lineNumber: 84,
-                                            columnNumber: 33
+                                            lineNumber: 91,
+                                            columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
                                             className: "text-xl font-bold text-navy",
                                             children: user.username
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/user/page.tsx",
-                                            lineNumber: 87,
-                                            columnNumber: 33
+                                            lineNumber: 94,
+                                            columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                             className: "text-gray-500",
                                             children: user.email
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/user/page.tsx",
-                                            lineNumber: 88,
-                                            columnNumber: 33
+                                            lineNumber: 95,
+                                            columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/user/page.tsx",
-                                    lineNumber: 83,
-                                    columnNumber: 29
+                                    lineNumber: 90,
+                                    columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "border-t border-gray-100 mt-6 pt-6",
@@ -127,24 +129,24 @@ const UserPage = ()=>{
                                         children: "Вийти"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/user/page.tsx",
-                                        lineNumber: 91,
-                                        columnNumber: 33
+                                        lineNumber: 98,
+                                        columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/user/page.tsx",
-                                    lineNumber: 90,
-                                    columnNumber: 29
+                                    lineNumber: 97,
+                                    columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/user/page.tsx",
-                            lineNumber: 82,
-                            columnNumber: 25
+                            lineNumber: 89,
+                            columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/app/user/page.tsx",
-                        lineNumber: 81,
-                        columnNumber: 21
+                        lineNumber: 88,
+                        columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex-1",
@@ -154,8 +156,8 @@ const UserPage = ()=>{
                                 children: "Історія замовлень"
                             }, void 0, false, {
                                 fileName: "[project]/src/app/user/page.tsx",
-                                lineNumber: 103,
-                                columnNumber: 25
+                                lineNumber: 110,
+                                columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex justify-center py-12",
@@ -163,13 +165,13 @@ const UserPage = ()=>{
                                     className: "animate-spin rounded-full h-12 w-12 border-b-2 border-teal"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/user/page.tsx",
-                                    lineNumber: 107,
-                                    columnNumber: 33
+                                    lineNumber: 116,
+                                    columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/user/page.tsx",
-                                lineNumber: 106,
-                                columnNumber: 29
+                                lineNumber: 115,
+                                columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0)) : orders.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "bg-white rounded-2xl p-12 text-center border border-gray-100 shadow-sm",
                                 children: [
@@ -178,8 +180,8 @@ const UserPage = ()=>{
                                         children: "У вас ще немає замовлень"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/user/page.tsx",
-                                        lineNumber: 111,
-                                        columnNumber: 33
+                                        lineNumber: 120,
+                                        columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/printings",
@@ -187,14 +189,14 @@ const UserPage = ()=>{
                                         children: "До каталогу"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/user/page.tsx",
-                                        lineNumber: 112,
-                                        columnNumber: 33
+                                        lineNumber: 123,
+                                        columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/user/page.tsx",
-                                lineNumber: 110,
-                                columnNumber: 29
+                                lineNumber: 119,
+                                columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-6",
                                 children: orders.map((order)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -210,8 +212,8 @@ const UserPage = ()=>{
                                                                 children: "Замовлення №"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/src/app/user/page.tsx",
-                                                                lineNumber: 122,
-                                                                columnNumber: 49
+                                                                lineNumber: 139,
+                                                                columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "text-lg font-bold text-navy",
@@ -221,28 +223,28 @@ const UserPage = ()=>{
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/user/page.tsx",
-                                                                lineNumber: 123,
-                                                                columnNumber: 49
+                                                                lineNumber: 142,
+                                                                columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/src/app/user/page.tsx",
-                                                        lineNumber: 121,
-                                                        columnNumber: 45
+                                                        lineNumber: 138,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "text-sm text-gray-500",
                                                         children: new Date(order.orderDate).toLocaleString("uk-UA")
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/app/user/page.tsx",
-                                                        lineNumber: 125,
-                                                        columnNumber: 45
+                                                        lineNumber: 146,
+                                                        columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/src/app/user/page.tsx",
-                                                lineNumber: 120,
-                                                columnNumber: 41
+                                                lineNumber: 137,
+                                                columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "space-y-4 mb-6",
@@ -256,8 +258,8 @@ const UserPage = ()=>{
                                                                         children: item.productName
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/app/user/page.tsx",
-                                                                        lineNumber: 135,
-                                                                        columnNumber: 57
+                                                                        lineNumber: 159,
+                                                                        columnNumber: 29
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         className: "text-sm text-gray-500",
@@ -269,14 +271,14 @@ const UserPage = ()=>{
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/app/user/page.tsx",
-                                                                        lineNumber: 136,
-                                                                        columnNumber: 57
+                                                                        lineNumber: 162,
+                                                                        columnNumber: 29
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/user/page.tsx",
-                                                                lineNumber: 133,
-                                                                columnNumber: 53
+                                                                lineNumber: 157,
+                                                                columnNumber: 27
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "font-bold text-navy",
@@ -286,19 +288,19 @@ const UserPage = ()=>{
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/src/app/user/page.tsx",
-                                                                lineNumber: 140,
-                                                                columnNumber: 53
+                                                                lineNumber: 166,
+                                                                columnNumber: 27
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, idx, true, {
                                                         fileName: "[project]/src/app/user/page.tsx",
-                                                        lineNumber: 132,
-                                                        columnNumber: 49
+                                                        lineNumber: 153,
+                                                        columnNumber: 25
                                                     }, ("TURBOPACK compile-time value", void 0)))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/user/page.tsx",
-                                                lineNumber: 130,
-                                                columnNumber: 41
+                                                lineNumber: 151,
+                                                columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex justify-end pt-4 border-t border-gray-100",
@@ -310,46 +312,46 @@ const UserPage = ()=>{
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/app/user/page.tsx",
-                                                    lineNumber: 146,
-                                                    columnNumber: 45
+                                                    lineNumber: 174,
+                                                    columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/src/app/user/page.tsx",
-                                                lineNumber: 145,
-                                                columnNumber: 41
+                                                lineNumber: 173,
+                                                columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, order.id, true, {
                                         fileName: "[project]/src/app/user/page.tsx",
-                                        lineNumber: 119,
-                                        columnNumber: 37
+                                        lineNumber: 133,
+                                        columnNumber: 19
                                     }, ("TURBOPACK compile-time value", void 0)))
                             }, void 0, false, {
                                 fileName: "[project]/src/app/user/page.tsx",
-                                lineNumber: 117,
-                                columnNumber: 29
+                                lineNumber: 131,
+                                columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/user/page.tsx",
-                        lineNumber: 102,
-                        columnNumber: 21
+                        lineNumber: 109,
+                        columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/user/page.tsx",
-                lineNumber: 79,
-                columnNumber: 17
+                lineNumber: 86,
+                columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         }, void 0, false, {
             fileName: "[project]/src/app/user/page.tsx",
-            lineNumber: 78,
-            columnNumber: 13
+            lineNumber: 85,
+            columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/src/app/user/page.tsx",
-        lineNumber: 77,
-        columnNumber: 9
+        lineNumber: 84,
+        columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
 const __TURBOPACK__default__export__ = UserPage;

@@ -4,6 +4,7 @@ export interface OrderItemDTO {
     productType: string;
     quantity: number;
     purchasePrice: number;
+    totalPrice?: number;
 }
 
 export interface OrderDTO {

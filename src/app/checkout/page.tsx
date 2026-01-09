@@ -26,6 +26,7 @@ export default function CheckoutPage() {
   >("warehouse");
 
   const [paymentMethod, setPaymentMethod] = useState<"card" | "cod">("card");
+  const [isOrderComplete, setIsOrderComplete] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -50,10 +51,10 @@ export default function CheckoutPage() {
 
   // Redirect to cart if empty
   useEffect(() => {
-    if (!isSubmitting && isLoaded && items.length === 0) {
+    if (!isSubmitting && isLoaded && items.length === 0 && !isOrderComplete) {
       router.push("/cart");
     }
-  }, [items, isLoaded, router, isSubmitting]);
+  }, [items, isLoaded, router, isSubmitting, isOrderComplete]);
 
   // Determine which list to use based on delivery method and type
   const getActiveList = () => {
@@ -212,6 +213,7 @@ export default function CheckoutPage() {
       }
 
       // 6. Success
+      setIsOrderComplete(true);
       clearCart();
       router.push("/checkout/success");
     } catch (error: unknown) {

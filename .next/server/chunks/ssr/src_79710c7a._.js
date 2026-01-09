@@ -374,7 +374,8 @@ function CatalogFilters({ onFilterChange }) {
 "use strict";
 
 __turbopack_context__.s({
-    "default": ()=>WallpapersPage
+    "default": ()=>WallpapersPage,
+    "dynamicParams": ()=>dynamicParams
 });
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$CategorySidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/CategorySidebar.tsx [app-ssr] (ecmascript)");
@@ -391,6 +392,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Catalog
 ;
 ;
 ;
+const dynamicParams = true;
 function WallpapersPage() {
     const [categories, setCategories] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -493,7 +495,7 @@ function WallpapersPage() {
                         activeCategory: selectedCategoryId
                     }, void 0, false, {
                         fileName: "[project]/src/app/wallpapers/page.tsx",
-                        lineNumber: 103,
+                        lineNumber: 106,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$CatalogFilters$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -501,13 +503,13 @@ function WallpapersPage() {
                         onFilterChange: handleFilterUpdate
                     }, void 0, false, {
                         fileName: "[project]/src/app/wallpapers/page.tsx",
-                        lineNumber: 110,
+                        lineNumber: 113,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/wallpapers/page.tsx",
-                lineNumber: 102,
+                lineNumber: 105,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -518,7 +520,7 @@ function WallpapersPage() {
                         children: "Фотошпалери"
                     }, void 0, false, {
                         fileName: "[project]/src/app/wallpapers/page.tsx",
-                        lineNumber: 117,
+                        lineNumber: 120,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$CatalogSearch$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -526,7 +528,7 @@ function WallpapersPage() {
                         placeholder: "Пошук шпалер за назвою..."
                     }, void 0, false, {
                         fileName: "[project]/src/app/wallpapers/page.tsx",
-                        lineNumber: 121,
+                        lineNumber: 124,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -541,7 +543,7 @@ function WallpapersPage() {
                                 sx: paginationSx
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wallpapers/page.tsx",
-                                lineNumber: 127,
+                                lineNumber: 130,
                                 columnNumber: 21
                             }, this),
                             isSearching && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -553,13 +555,13 @@ function WallpapersPage() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/src/app/wallpapers/page.tsx",
-                                lineNumber: 136,
+                                lineNumber: 139,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/src/app/wallpapers/page.tsx",
-                        lineNumber: 126,
+                        lineNumber: 129,
                         columnNumber: 17
                     }, this),
                     loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -569,19 +571,19 @@ function WallpapersPage() {
                             children: "Завантаження товарів..."
                         }, void 0, false, {
                             fileName: "[project]/src/app/wallpapers/page.tsx",
-                            lineNumber: 144,
+                            lineNumber: 147,
                             columnNumber: 25
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/src/app/wallpapers/page.tsx",
-                        lineNumber: 143,
+                        lineNumber: 146,
                         columnNumber: 21
                     }, this) : error ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "text-red-500 py-10",
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/src/app/wallpapers/page.tsx",
-                        lineNumber: 147,
+                        lineNumber: 150,
                         columnNumber: 21
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                         children: [
@@ -599,7 +601,7 @@ function WallpapersPage() {
                                         basePath: "/wallpapers"
                                     }, product.id || idx, false, {
                                         fileName: "[project]/src/app/wallpapers/page.tsx",
-                                        lineNumber: 158,
+                                        lineNumber: 161,
                                         columnNumber: 41
                                     }, this);
                                 }) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -607,12 +609,12 @@ function WallpapersPage() {
                                     children: "Товарів не знайдено за вашим запитом."
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/wallpapers/page.tsx",
-                                    lineNumber: 171,
+                                    lineNumber: 174,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wallpapers/page.tsx",
-                                lineNumber: 150,
+                                lineNumber: 153,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -626,12 +628,12 @@ function WallpapersPage() {
                                     sx: paginationSx
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/wallpapers/page.tsx",
-                                    lineNumber: 178,
+                                    lineNumber: 181,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/src/app/wallpapers/page.tsx",
-                                lineNumber: 177,
+                                lineNumber: 180,
                                 columnNumber: 25
                             }, this)
                         ]
@@ -639,13 +641,13 @@ function WallpapersPage() {
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/app/wallpapers/page.tsx",
-                lineNumber: 116,
+                lineNumber: 119,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/src/app/wallpapers/page.tsx",
-        lineNumber: 100,
+        lineNumber: 103,
         columnNumber: 9
     }, this);
 }
